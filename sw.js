@@ -1,6 +1,6 @@
-// My Finances offline-first service worker — v1.7.3
+// My Finances offline-first service worker — v1.7.4
 // Works on GitHub Pages root sites and subdirectory project sites.
-const CACHE_NAME = 'rico-finances-v1.7.3';
+const CACHE_NAME = 'rico-finances-v1.7.4';
 const CACHE_PREFIX = 'rico-finances-';
 const APP_SHELL = [
   './', './index.html', './styles.css', './icons.js', './analyst.js',

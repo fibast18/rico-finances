@@ -22,7 +22,7 @@
 .pb-safe{padding-bottom:env(safe-area-inset-bottom,20px)}
 .pt-safe{padding-top:env(safe-area-inset-top,20px)}
 
-/* My Finances v1.7.3 core controls: inline so an older CSS cache cannot enlarge profile photo. */
+/* My Finances v1.7.4 core controls: inline so an older CSS cache cannot enlarge profile photo. */
 #appHeader{position:sticky;top:0;z-index:40;background:rgba(0,0,0,.94);border-bottom:1px solid #2c2c2e;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
 #appHeader .app-header-inner{width:100%;max-width:448px;margin:0 auto;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;box-sizing:border-box}
 #appHeader .app-header-primary{display:flex!important;justify-content:space-between;align-items:center;gap:10px;min-width:0}
@@ -31,6 +31,7 @@
 #appHeader .app-header-copy{flex:1 1 auto;min-width:0;max-width:100%;overflow:hidden}
 #appHeader #appHeaderTitle{font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;display:block;color:#fff;font-size:18px;font-weight:800;letter-spacing:.1px;line-height:1.3;margin:0;overflow-wrap:anywhere}
 #appHeader #userGreeting{display:block;color:#e5e5ea;font-size:16.8px;font-weight:650;line-height:1.35;margin:3px 0 0;overflow-wrap:anywhere}
+#appHeader #currentDateLine{display:block;color:#aeb0b8;font-size:12.5px;font-weight:500;line-height:1.35;margin:4px 0 0;letter-spacing:.05px;overflow-wrap:normal}
 #appHeader .app-settings-btn{flex:0 0 42px;display:flex;justify-content:center;align-items:center;width:42px;height:42px;border-radius:14px;color:#f2f2f7;background:#1c1c1e;border:1px solid #3a3a3c;cursor:pointer;touch-action:manipulation}
 #appHeader .app-settings-btn svg{width:22px;height:22px}
 #appHeader .app-header-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
@@ -60,7 +61,7 @@ body.personalization-open,body.ai-analyst-open{overflow:hidden;touch-action:pan-
 .ai-analyst-close{display:flex;align-items:center;justify-content:center;flex:0 0 35px;width:35px;height:35px;border-radius:50%;background:#35303d;color:#fff;border:1px solid #62506d;cursor:pointer;touch-action:manipulation}
 .ai-analyst-close svg{width:18px;height:18px}
 .ai-analyst-close:focus-visible{outline:2px solid #bf8cff;outline-offset:2px}
-@media(max-width:355px){#appHeader #profileLogo{width:69px!important;height:69px!important;min-width:69px!important;max-width:69px!important;max-height:69px!important;min-height:69px!important;flex-basis:69px}#appHeader #appHeaderTitle{font-size:16px}#appHeader #userGreeting{font-size:15px}#appHeader .app-header-inner{padding-left:12px;padding-right:12px}}
+@media(max-width:355px){#appHeader #profileLogo{width:69px!important;height:69px!important;min-width:69px!important;max-width:69px!important;max-height:69px!important;min-height:69px!important;flex-basis:69px}#appHeader #appHeaderTitle{font-size:16px}#appHeader #userGreeting{font-size:15px}#appHeader #currentDateLine{font-size:11px}#appHeader .app-header-inner{padding-left:12px;padding-right:12px}}
 </style>
 </head>
 <body class="bg-black text-white font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-iosBlue selection:text-white pb-safe">
@@ -73,6 +74,7 @@ body.personalization-open,body.ai-analyst-open{overflow:hidden;touch-action:pan-
         <div class="app-header-copy">
           <h1 id="appHeaderTitle">My Finances</h1>
           <p id="userGreeting">Good day, Boss Rico J.</p>
+          <p id="currentDateLine" aria-label="Today’s date">Monday, Nov. 2, 2026</p>
         </div>
       </div>
       <div class="app-header-actions">
@@ -206,7 +208,7 @@ body.personalization-open,body.ai-analyst-open{overflow:hidden;touch-action:pan-
 
 <footer class="max-w-md mx-auto w-full px-4 py-4 text-center">
   <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-iosCardDark border border-iosBorderDark text-[11px] text-iosGray">
-    <span class="w-1.5 h-1.5 rounded-full bg-iosGreen"></span><span id="footerAppName">My Finances</span><span class="text-iosGray2 font-medium">v1.7.3</span>
+    <span class="w-1.5 h-1.5 rounded-full bg-iosGreen"></span><span id="footerAppName">My Finances</span><span class="text-iosGray2 font-medium">v1.7.4</span>
   </div>
   <p class="text-[10px] text-iosGray/60 mt-1.5">Personal finance tracker &bull; 210 Borderless Sports Actions</p>
   <p id="developerCredit" class="mt-2 text-[11px] text-iosGray2 font-medium">Developed by: Engr. Rico J. Pono</p>
@@ -350,7 +352,7 @@ body.personalization-open,body.ai-analyst-open{overflow:hidden;touch-action:pan-
 </div>
 
 <script>
-const RICO_APP_VERSION = '1.7.3';
+const RICO_APP_VERSION = '1.7.4';
 let appServiceWorkerRegistration = null;
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
   window.addEventListener('load', () => {
@@ -599,6 +601,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initPersonalization(); updateCategoryDropdown(); initNetworkStatus(); initSwipeEvents();
   renderApp(); initStickmanAnimation(); updateBackupInfo(); lucide.createIcons();
   document.getElementById('txDate').value = todayLocal();
+  // Keep the greeting and date accurate after midnight and after switching back to the app.
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) updateGreeting(); });
+  window.addEventListener('pageshow', updateGreeting);
+  window.addEventListener('focus', updateGreeting);
+  setInterval(() => { if (!document.hidden) updateGreeting(); }, 60000);
 });
 
 function changeMonth(offset) {
@@ -707,10 +714,20 @@ function persistData() {
     localStorage.setItem('rico_finances_backup_fallback', s);
   } catch (e) { alert('Could not save data. Storage may be full or blocked. Please export a backup.'); }
 }
+// Device-local calendar date, refreshed when the app opens or returns to the foreground.
+// A period is included after abbreviated months, e.g. "Monday, Nov. 2, 2026".
+function updateHeaderDate() {
+  const now = new Date();
+  const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'];
+  const dateLine = document.getElementById('currentDateLine');
+  if (dateLine) dateLine.textContent = `${weekdays[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+}
 function updateGreeting() {
   const h = new Date().getHours();
   const g = h >= 5 && h < 12 ? 'Good morning' : (h >= 12 && h < 18 ? 'Good afternoon' : 'Good evening');
   document.getElementById('userGreeting').textContent = `${g}, ${personalization.displayName}`;
+  updateHeaderDate();
 }
 function formatPHP(amount) {
   return new Intl.NumberFormat('en-PH', { style:'currency', currency:'PHP', minimumFractionDigits:2 }).format(amount).replace('PHP', '₱');

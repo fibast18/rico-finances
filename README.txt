@@ -1,3 +1,39 @@
+MY FINANCES v1.7.4 — LIVE HEADER DATE (CUMULATIVE OFFLINE EDITION)
+================================================================
+
+NEW IN v1.7.4
+- Adds the current date directly beneath the personalized greeting.
+- Example date: Monday, Nov. 2, 2026.
+- Uses the phone's local date, updates periodically, and refreshes when the app is reopened or resumed.
+- Preserves the header photo, app name, AI Analyst, floating Add button, settings,
+  locally stored transaction data, offline functionality, and iPhone Export repair.
+- App code version, visible footer, version.json, and service worker cache all updated to 1.7.4.
+
+INSTALLATION
+1. Export a backup first, if Export is available on the installed app.
+2. Extract this ZIP and upload ALL app files (not the ZIP) to the existing GitHub Pages
+   repository's publishing folder; keep the same Pages URL for existing users.
+3. Check YOUR_GITHUB_PAGES_URL/version.json while online: it must show version 1.7.4.
+4. Open the existing app online, use Check for App Update, and reopen it.
+5. Verify the footer shows v1.7.4, the current date is beneath the greeting,
+   and Export works before deleting any prior app or clearing browser data.
+6. Open offline after an online launch has installed the updated files.
+
+IMPORTANT
+- All financial data is stored separately in each installation using the existing keys:
+  rico_finances_txs and rico_finances_backup_fallback.
+- Do NOT uninstall older Home Screen apps or clear website data until saved finance
+  records have been exported and verified in Files.
+- If /rico-finances/ and /personal-finances/ are both used by coworkers, publish
+  app updates at the corresponding old and new URLs; renaming the repo alone is
+  not a safe method of migrating local data.
+- No private activation or approved-device restriction is included in this update.
+- First-ever install requires internet; offline use requires one successful install.
+
+Developed by: Engr. Rico J. Pono
+
+RETAINED v1.7.3 REPAIR NOTES
+----------------------------
 MY FINANCES v1.7.3 — SAFE IPHONE EXPORT + UPDATE CHECK REPAIR
 =========================================================
 
