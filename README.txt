@@ -1,3 +1,35 @@
+MY FINANCES v1.7.5 — COMPACT HEADER LAYOUT (CUMULATIVE OFFLINE EDITION)
+============================================================================
+
+NEW IN v1.7.5
+- Aligns My Finances title horizontally with the AI and Settings buttons in the FIRST row.
+- Keeps the personalized greeting directly underneath.
+- Aligns the live, localized weekday/date with the ONLINE/OFFLINE badge in the LAST row.
+- Eliminates the extra full-width status row and reduces empty header space.
+- Responsive layout for smaller iPhones; app name truncates gracefully if customized long.
+- No change to transaction data schema, storage keys, backup JSON structure or personalization.
+- Retains AI Analyst, iPhone Export/Import, floating Add button, logo, icons, live date,
+  service-worker offline caching and all original finance features.
+
+INSTALLATION / UPDATE
+1. Export a backup on EACH installed device, if possible, and verify it exists in Files.
+2. Extract the ZIP. Upload ALL the app files (not the ZIP) to the SAME GitHub Pages
+   publishing folder where that device originally installed the app.
+3. Verify the live URL /version.json shows 1.7.5 (for a project site use
+   https://USERNAME.github.io/REPOSITORY/version.json).
+4. Open each existing app online, use Check for App Update, then fully reopen it.
+5. Confirm footer shows v1.7.5 and the controls/date are aligned in the header.
+6. After a successful online load, test offline launch.
+
+CAUTION: DO NOT REMOVE EXISTING IPHONE HOME SCREEN INSTALLATIONS OR CLEAR WEBSITE
+DATA. Financial transactions live on each phone. Changing a GitHub Pages URL
+can leave existing installations unable to update. If friends installed from
+/rico-finances/ and /personal-finances/, keep BOTH site addresses working.
+First-time installation requires an internet connection.
+No approved-device access-code security is implemented in this release.
+
+Developer: Engr. Rico J. Pono
+
 MY FINANCES v1.7.4 — LIVE HEADER DATE (CUMULATIVE OFFLINE EDITION)
 ================================================================
 
